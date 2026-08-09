@@ -1,0 +1,23 @@
+<article class="post">
+    <h2>
+        <a href="{{ path('review_show', { id: review.id }) }}">
+            {% for i in 1..5 %}
+                {% if i <= review.rating %}
+                    ★ {# Teli csillag #}
+                {% else %}
+                    ☆ {# Üres csillag #}
+                {% endif %}
+            {% endfor %}
+            {{ review.companyName }}
+        </a>
+    </h2>
+
+    <p class="post-metadata">
+        <span class="metadata"><twig:ux:icon name="tabler:calendar-month"/> {{ review.createdAt|format_datetime('long', 'medium', '') }}</span>
+        {% if review.createdAt != review.updatedAt %}
+        <span class="metadata"><twig:ux:icon name="tabler:pencil"/> {{ review.updatedAt|format_datetime('long', 'medium', '') }}</span>
+        {% endif %}
+    </p>
+
+    <p>{{ review.reviewText|u.truncate(100, '...') }}</p>
+</article>

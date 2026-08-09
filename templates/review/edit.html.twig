@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Értékelés szerkesztése - {{ review.companyName }}{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+
+            {# Navigáció vissza a részletekhez #}
+            <div class="mb-3">
+                <a href="{{ path('review_show', { id: review.id }) }}" class="btn btn-outline-secondary btn-sm">
+                    &larr; Mégse
+                </a>
+            </div>
+
+            <div class="card shadow-sm">
+                <div class="card-header bg-warning text-dark">
+                    <h3 class="card-title mb-0">Értékelés szerkesztése (#{{ review.id }})</h3>
+                </div>
+                <div class="card-body">
+                    {# Flash üzenetek #}
+                    {% for message in app.flashes('success') %}
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+
+                    {# Form renderelése a meglévő adatokkal #}
+                    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                        <div class="mb-3">
+                            {{ form_label(form.companyName) }}
+                            {{ form_widget(form.companyName) }}
+                            <div class="text-danger">
+                                {{ form_errors(form.companyName) }}
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form_label(form.rating) }}
+                            {{ form_widget(form.rating) }}
+                            <div class="text-danger">
+                                {{ form_errors(form.rating) }}
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form_label(form.authorEmail) }}
+                            {{ form_widget(form.authorEmail) }}
+                            <div class="text-danger">
+                                {{ form_errors(form.authorEmail) }}
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form_label(form.reviewText) }}
+                            {{ form_widget(form.reviewText) }}
+                            <div class="text-danger">
+                                {{ form_errors(form.reviewText) }}
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            {{ form_widget(form.submit, {'label': 'Módosítások mentése'}) }}
+                        </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

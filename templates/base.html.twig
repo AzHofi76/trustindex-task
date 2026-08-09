@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="{{ app.locale }}" dir="{{ is_rtl() ? 'rtl' : 'ltr' }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="view-transition" content="same-origin">
+        <title>{% block title %}Trustindex feladat{% endblock %}</title>
+        <link rel="shortcut icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
+
+        {% block stylesheets %}{% endblock %}
+        {% block javascripts %}
+            {% block importmap %}{{ importmap('app') }}{% endblock %}
+        {% endblock %}
+    </head>
+
+    <body id="{% block body_id %}{% endblock %}" class="{{ is_rtl(app.locale) ? 'rtl' }}">
+
+        {% block header %}
+            {% set _route = app.current_route %}
+            <header>
+                <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
+                    <div class="container">
+                        <a class="navbar-brand" href="{{ path('homepage') }}">
+                            Trustindex feladat
+                        </a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#appNavbar" aria-controls="appNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="appNavbar">
+                            <ul class="navbar-nav">
+                                {% block header_navigation_links %}
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ _route == 'review_index' ? 'active' }}" href="{{ path('review_index') }}">
+                                            <twig:ux:icon name="tabler:home"/> Főoldal
+                                        </a>
+                                    </li>
+                                {% endblock %}
+                                <li class="nav-item">
+                                    <a class="nav-link {{ _route == 'review_new' ? 'active' }}" href="{{ path('review_new') }}">
+                                        <twig:ux:icon name="tabler:pencil"/> Értékelés leadása
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{ _route == 'review_search' ? 'active' }}" href="{{ path('review_search') }}">
+                                        <twig:ux:icon name="tabler:search"/> Keresés
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{ _route == 'company_statistics' ? 'active' }}" href="{{ path('company_statistics') }}">
+                                        <twig:ux:icon name="tabler:chart-bar"/> Cégstatisztika
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </header>
+        {% endblock %}
+
+        <div class="container body-container">
+            {% block body %}
+                <div class="row">
+                    <div id="main" class="col-sm-9">
+                        {{ include('default/_flash_messages.html.twig') }}
+
+                        {% block main %}{% endblock %}
+                    </div>
+                </div>
+            {% endblock %}
+        </div>
+
+        {% block footer %}
+            <footer>
+                <div class="container">
+                    <div class="row">
+                        <div id="footer-copyright" class="col-md-6">
+                            Attila HOFFEREK &lt;<a href="mailto:azhofi@gmail.com">azhofi@gmail.com</a>&gt;
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        {% endblock %}
+    </body>
+</html>

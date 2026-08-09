@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cégstatisztikák{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8">
+            
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="h3">Összesített cégstatisztika</h1>
+            </div>
+
+            {% if stats is empty %}
+                <div class="alert alert-info" role="alert">
+                    Még nem érkezett egyetlen értékelés sem.
+                </div>
+            {% else %}
+                <div class="card shadow-sm">
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped align-middle mb-0">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th scope="col" class="ps-3">#</th>
+                                        <th scope="col">Cég neve</th>
+                                        <th scope="col" class="text-center">Értékelések száma</th>
+                                        <th scope="col" class="text-center">Átlagos értékelés</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for stat in stats %}
+                                        {# Kerekítés 1 tizedesjegyre a csillagok kiszámításához #}
+                                        {% set roundedAvg = stat.averageRating|round(0, 'common') %}
+                                        <tr>
+                                            <th scope="row" class="ps-3 text-muted">{{ loop.index }}</th>
+                                            <td class="fw-bold">{{ stat.companyName }}</td>
+                                            <td class="text-center">
+                                                <span class="badge bg-secondary rounded-pill">
+                                                    {{ stat.reviewCount }} db
+                                                </span>
+                                            </td>
+                                            <td class="text-center fs-5 fw-bold text-primary">
+                                                {{ stat.averageRating|number_format(1, ',', ' ') }} / 5
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{# See https://symfony.com/bundles/ux-live-component/current/index.html #}
+<div {{ attributes }}>
+    <div class="form-group">
+        <input type="search"
+               class="form-control search-field"
+               placeholder="Kezdjen gépelni..."
+               autocomplete="off"
+               data-model="query"
+               autofocus
+        >
+    </div>
+
+    {% for review in this.reviews %}
+        {{ include('review/_review.html.twig') }}
+    {% else %}
+        {% if query is not empty %}
+            Nincs találat vagy kevés karakter...
+        {% endif %}
+    {% endfor %}
+</div>

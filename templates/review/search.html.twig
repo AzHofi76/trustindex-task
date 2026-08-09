@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block body_id 'review_search' %}
+
+{% block main %}
+    {#
+        Render a component by passing its name as first argument
+        See https://symfony.com/bundles/ux-twig-component/current/index.html
+    #}
+    {{ component('review_search', {
+        query: query,
+    }) }}
+{% endblock %}

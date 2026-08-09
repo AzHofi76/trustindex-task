@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block body_id 'review_index' %}
+
+{% block main %}
+    {% for review in paginator.results %}
+        {{ include('review/_review.html.twig') }}
+    {% else %}
+        <div class="bg-body-tertiary mb-3 p-3 rounded">Nincs értékelés</div>
+    {% endfor %}
+
+    {% if paginator.hasToPaginate %}
+
+        <div class="navigation text-center">
+            <ul class="pagination pagination-lg">
+                {% if paginator.hasPreviousPage %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ path('review_index_paginated', {page: paginator.previousPage}) }}" rel="previous">
+                            <twig:ux:icon name="tabler:arrow-left"/> Előző
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link"><twig:ux:icon name="tabler:arrow-left"/> Előző</span>
+                    </li>
+                {% endif %}
+
+                {% for i in 1..paginator.lastPage %}
+                    {% if i == paginator.currentPage %}
+                        <li class="page-item active">
+                            <span class="page-link">{{ i }}</span>
+                        </li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="{{ path('review_index_paginated', {page: i}) }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if paginator.hasNextPage %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ path('review_index_paginated', {page: paginator.nextPage}) }}">
+                            <span>Következő <twig:ux:icon name="tabler:arrow-right"/></span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">Következő <twig:ux:icon name="tabler:arrow-right"/></span>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    {% endif %}
+{% endblock %}
+

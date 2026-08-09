@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Értékelés: {{ review.companyName }}{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+
+            {# Vissza gomb vagy navigáció #}
+            <div class="mb-3">
+                <a href="javascript:history.back()" class="btn btn-outline-secondary btn-sm">
+                    &larr; Vissza
+                </a>
+            </div>
+
+            <div class="card shadow">
+                <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                    <h2 class="h4 mb-0">
+                        <a class="nav-link" href="{{ path('review_edit', { id: review.id }) }}">
+                            <twig:ux:icon name="tabler:pencil"/> {{ review.companyName }}
+                        </a>
+                    </h2>
+                    
+                    {# Csillagok megjelenítése (1-5) #}
+                    <div class="text-warning h5 mb-0">
+                        {% for i in 1..5 %}
+                            {% if i <= review.rating %}
+                                ★
+                            {% else %}
+                                <span class="text-muted">☆</span>
+                            {% endif %}
+                        {% endfor %}
+                        <span class="badge bg-primary ms-2 fs-6">{{ review.rating }}/5</span>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    {# Szerző adatai #}
+                    <p class="text-muted small mb-3">
+                        <strong>Szerző:</strong> 
+                        <a href="mailto:{{ review.authorEmail }}">{{ review.authorEmail }}</a>
+                    </p>
+
+                    <hr>
+
+                    {# Vélemény szövege #}
+                    <div class="review-text my-4 fs-5">
+                        <p class="card-text">{{ review.reviewText|nl2br }}</p>
+                    </div>
+
+                    <hr>
+
+                    {# Dátumok #}
+                    <div class="d-flex justify-content-between text-muted small">
+                        <span>
+                            <strong>Létrehozva:</strong> {{ review.createdAt|date('Y.m.d H:i') }}
+                        </span>
+                        
+                        {# Megjelenítjük az frissítési dátumot is, ha eltér a létrehozástól #}
+                        {% if review.updatedAt != review.createdAt %}
+                            <span>
+                                <strong>Módosítva:</strong> {{ review.updatedAt|date('Y.m.d H:i') }}
+                            </span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

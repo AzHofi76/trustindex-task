@@ -1,0 +1,25 @@
+# config/packages/security.yaml
+security:
+    # 1. Clear or comment out your existing user providers
+    providers:
+        disabled_provider:
+            memory:
+                users: {}
+
+    firewalls:
+        # Keep Symfony internal routes open
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        # 2. Open up the catch-all firewall 
+        main:
+            lazy: true
+            # Remove/comment out custom authenticators, guard, form_login, etc.
+            # security: false can be used here, but keeping it enabled with no 
+            # authentication restrictions prevents runtime breaks if security-related
+            # services or Twig helpers are injected elsewhere in your code.
+
+    # 3. Comment out, remove, or explicitly grant PUBLIC_ACCESS to all routes
+    access_control:
+        - { path: ^/, roles: PUBLIC_ACCESS }

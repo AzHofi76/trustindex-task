@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block body_id 'homepage' %}
+{% block header %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block body %}
+    <div class="page-header">
+        <h1>Trustindex feladat</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-sm">
+            <div class="bg-body-tertiary px-3 py-5 rounded-3">
+                <p class="mb-0">
+                    <a class="btn btn-primary btn-lg" href="{{ path('review_index') }}">
+                        <twig:ux:icon name="tabler:users-group" font-size="21px" /> {{ 'action.browse_app'|trans }}
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
