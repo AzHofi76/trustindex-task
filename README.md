@@ -61,3 +61,5 @@ A kiindulási alap a Symfony demo projekt volt - utólag nem biztos, hogy újra 
 * kontroller létrehozása 
 * nézetek létrehozása 60-70 perc
 * tesztek létrehozása 60-70 perc
+
+Bónusz: ajax kereső, paginator a főoldalon
